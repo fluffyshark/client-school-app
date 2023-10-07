@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthContextProvider } from "./components/context/authContext";
+import Login from './pages/login/Login';
 import './App.css';
 
 function App() {
+
+  const [userCredentials, setUserCredentials] = useState<{
+    username: string | undefined,
+  }>({
+    username: undefined,
+  })
+
+  const getUserCredentials = (credentials: {
+    username: string,
+  }) => {
+    setUserCredentials(credentials)
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/" element={<Login getUserCredentials={getUserCredentials} />} />
+
+        </Routes>
+      </AuthContextProvider>
+    </BrowserRouter>
   );
 }
 
