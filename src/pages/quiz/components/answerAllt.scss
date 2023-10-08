@@ -1,0 +1,56 @@
+@mixin flex($justify, $align, $direction) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+}
+
+.answerAlt {
+    width: 100%;
+    height: 100%;
+    @include flex(center, center, column);
+}
+
+
+
+.answerAlt_questionArea {
+    width: 100%;
+    height: calc(100% - 265px);
+    @include flex(center, center, row);
+
+    p {
+        color: #666666;
+        font-family: "Fredoka", sans-serif;
+        font-size: 30px;
+        text-align: center;
+
+    }
+}
+
+
+.answerAlt_answerArea {
+    width: 1024px;
+    height: 260px;
+    @include flex(center, center, row);
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+
+    .answerAlt {
+        width: 465px;
+        height: 100px;
+        background-color: white;
+        border-radius: 7px;
+        border-bottom: 5px solid #d9d9d9;
+        text-align: center;
+        @include flex(center, center, row);
+
+        p {
+            color: #9c9c9c;
+            font-family: "Fredoka", sans-serif;
+            font-size: 25px;
+        }
+    }
+}
