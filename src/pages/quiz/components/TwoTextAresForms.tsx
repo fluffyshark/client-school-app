@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./twoTextAresForm.scss"
+import axios from 'axios';
 
 interface FormState {
     field1: string;
@@ -8,9 +9,13 @@ interface FormState {
 
 interface Props {
     quiz_question: any
+    setStudentAnswers: any
+    studnetAnswers: any
+    quizOrder: number
+    setQuizOrder: any
 }
 
-const TwoTextAresForms = ({ quiz_question }: Props) => {
+const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder }: Props) => {
 
     const [formData, setFormData] = useState<FormState>({
         field1: '',
@@ -29,7 +34,32 @@ const TwoTextAresForms = ({ quiz_question }: Props) => {
         event.preventDefault();
         // You can handle form submission here, e.g., send data to an API
         console.log('Form Data:', formData);
+        const updatedAnswers = [...studnetAnswers];
+        updatedAnswers[quizOrder].answer1 = formData.field1;
+        updatedAnswers[quizOrder].answer2 = formData.field2;
+        setStudentAnswers(updatedAnswers);
+
+        setQuizOrder(quizOrder + 1)
+
+        setTimeout(() => {
+            sendToDatabase(updatedAnswers)
+        }, 1000);
     };
+
+
+
+    function sendToDatabase(updatedAnswers: any) {
+        axios.put(`http://localhost:8800/server/users/6522a79e3292e8cde1a79cb6/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+            .then((response) => {
+                console.log('User updated successfully:', response.data);
+                // Handle success, if needed
+            })
+            .catch((error) => {
+                console.error('Error updating user:', error);
+                // Handle errors, if needed
+            });
+    }
+
 
     return (
 
