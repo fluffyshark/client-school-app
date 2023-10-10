@@ -38,7 +38,8 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
 
 
     function sendToDatabase(updatedAnswers: any) {
-        axios.put(`http://localhost:8800/server/users/6522a79e3292e8cde1a79cb6/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+        axios.put(`https://server-school-test.onrender.com/server/users/6522a79e3292e8cde1a79cb6/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+            // axios.put(`http://localhost:8800/server/users/6522a79e3292e8cde1a79cb6/lasforstaelse2`, { studnetAnswers: updatedAnswers })
             .then((response) => {
                 console.log('User updated successfully:', response.data);
                 // Handle success, if needed
