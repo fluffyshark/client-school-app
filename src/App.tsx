@@ -24,8 +24,9 @@ function App() {
     <BrowserRouter>
       <AuthContextProvider>
         <Routes>
-          <Route path="/login" element={<Login getUserCredentials={getUserCredentials} />} />
-          <Route path="/" element={<Quiz />} />
+          <Route path="/" element={<Login getUserCredentials={getUserCredentials} />} />
+          <Route path="/login/:paramusername" element={<Login getUserCredentials={getUserCredentials} />} />
+          <Route path="/quiz" element={<Quiz />} />
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

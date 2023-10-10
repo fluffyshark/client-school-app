@@ -13,9 +13,10 @@ interface Props {
     studnetAnswers: any
     quizOrder: number
     setQuizOrder: any
+    setQuizTracker: any
 }
 
-const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder }: Props) => {
+const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder, setQuizTracker }: Props) => {
 
     const [formData, setFormData] = useState<FormState>({
         field1: '',
@@ -38,6 +39,12 @@ const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, qu
         updatedAnswers[quizOrder].answer1 = formData.field1;
         updatedAnswers[quizOrder].answer2 = formData.field2;
         setStudentAnswers(updatedAnswers);
+
+        setQuizTracker((prevState: string[]) => {
+            const updatedQuizTracker = [...prevState]; // Create a copy of the original array
+            updatedQuizTracker[quizOrder] = "done"; // Set the element at index 2 to "done"
+            return updatedQuizTracker; // Return the updated array
+        });
 
         setQuizOrder(quizOrder + 1)
 

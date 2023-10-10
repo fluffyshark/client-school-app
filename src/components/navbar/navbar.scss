@@ -25,6 +25,16 @@
             height: 22px;
             border-radius: 100%;
             background-color: #9c9c9c;
+            @include flex(center, center, row);
+
+            .progressCicleDot {
+                width: 16px;
+                height: 16px;
+                background-color: white;
+                border-radius: 100%;
+
+
+            }
         }
     }
 

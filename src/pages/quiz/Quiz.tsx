@@ -10,6 +10,7 @@ type Props = {}
 const Quiz = (props: Props) => {
 
     const [quizOrder, setQuizOrder] = useState(0)
+    const [quizTracker, setQuizTracker] = useState<string[]>(["", "", "", "", "", "", "", "", "", "",]);
     const [studnetAnswers, setStudentAnswers] = useState([
         { nr: 0, question: `${lasforstaelse2[0].question}`, answer1: "", answer2: "", points: 0 },
         { nr: 1, question: `${lasforstaelse2[1].question}`, answer1: "", answer2: "" },
@@ -31,19 +32,19 @@ const Quiz = (props: Props) => {
 
     return (
         <div className='quiz'>
-            <Navbar setQuizOrder={setQuizOrder} />
+            <Navbar setQuizOrder={setQuizOrder} quizTracker={quizTracker} />
             {/* <img src={mall} alt="" /> */}
             <div className="mainContent">
 
                 {lasforstaelse2.map((quiz_question, i) => {
                     if (quiz_question.type === "answerAlt") {
                         if (quizOrder === quiz_question.order) {
-                            return <AnswerAllt key={i} quiz_question={quiz_question} setStudentAnswers={setStudentAnswers} studnetAnswers={studnetAnswers} quizOrder={quizOrder} setQuizOrder={setQuizOrder} />
+                            return <AnswerAllt key={i} quiz_question={quiz_question} setStudentAnswers={setStudentAnswers} studnetAnswers={studnetAnswers} quizOrder={quizOrder} setQuizOrder={setQuizOrder} setQuizTracker={setQuizTracker} />
                         }
 
                     } else if (quiz_question.type === "textarea") {
                         if (quizOrder === quiz_question.order) {
-                            return <TwoTextAresForms key={i} quiz_question={quiz_question} setStudentAnswers={setStudentAnswers} studnetAnswers={studnetAnswers} quizOrder={quizOrder} setQuizOrder={setQuizOrder} />
+                            return <TwoTextAresForms key={i} quiz_question={quiz_question} setStudentAnswers={setStudentAnswers} studnetAnswers={studnetAnswers} quizOrder={quizOrder} setQuizOrder={setQuizOrder} setQuizTracker={setQuizTracker} />
                         }
                     }
 

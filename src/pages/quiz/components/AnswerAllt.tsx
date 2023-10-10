@@ -10,9 +10,10 @@ type Props = {
     studnetAnswers: any
     quizOrder: number
     setQuizOrder: any
+    setQuizTracker: any
 }
 
-const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder }: Props) => {
+const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder, setQuizTracker }: Props) => {
 
     function clickedOnAlt(answer: string, order: number) {
         const updatedAnswers = [...studnetAnswers];
@@ -20,7 +21,14 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
         if (lasforstaelse2[order].correct === answer) { updatedAnswers[order].points = 1; } else { updatedAnswers[order].points = 0; }
         setStudentAnswers(updatedAnswers);
 
+        setQuizTracker((prevState: string[]) => {
+            const updatedQuizTracker = [...prevState]; // Create a copy of the original array
+            updatedQuizTracker[quizOrder] = "done"; // Set the element at index 2 to "done"
+            return updatedQuizTracker; // Return the updated array
+        });
+
         setQuizOrder(quizOrder + 1)
+
 
 
         setTimeout(() => {
