@@ -29,3 +29,67 @@
 
 
 @media only screen and (max-width: 1150px) {}
+
+
+
+
+
+
+
+
+/* iPad 10.2-inch LANDSCAPE */
+
+/* Safari browser (no extra tabs) */
+@media only screen and (max-width: 1080px) and (min-width: 1080px) and (max-height: 740px) and (min-height: 740px) {
+    .quiz {
+        overflow: hidden;
+        height: 740px;
+    }
+}
+
+
+/* Safari browser (with extra tabs) */
+@media only screen and (max-width: 1080px) and (min-width: 1080px) and (max-height: 707px) and (min-height: 707px) {
+    .quiz {
+        overflow: hidden;
+        height: 707px;
+    }
+}
+
+
+/* Chrome browser */
+@media only screen and (max-width: 1080px) and (min-width: 1080px) and (max-height: 695px) and (min-height: 695px) {
+    .quiz {
+        overflow: hidden;
+        height: 695px;
+    }
+}
+
+
+
+
+/* iPad 9-inch LANDSCAPE */
+
+/* Safari browser (no extra tabs) */
+@media only screen and (max-width: 1024px) and (min-width: 1024px) and (max-height: 698px) and (min-height: 698px) {
+    .quiz {
+        overflow: hidden;
+        height: 698px;
+    }
+}
+
+/* Safari browser (with extra tabs) */
+@media only screen and (max-width: 1024px) and (min-width: 1024px) and (max-height: 665px) and (min-height: 665px) {
+    .quiz {
+        overflow: hidden;
+        height: 665px;
+    }
+}
+
+/* Chome browser */
+@media only screen and (max-width: 1024px) and (min-width: 1024px) and (max-height: 653px) and (min-height: 653px) {
+    .quiz {
+        overflow: hidden;
+        height: 653px;
+    }
+}
