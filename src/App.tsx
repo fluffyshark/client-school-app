@@ -4,13 +4,15 @@ import { AuthContextProvider } from "./components/context/authContext";
 import Login from './pages/login/Login';
 import './App.css';
 import Quiz from './pages/quiz/Quiz';
+import TeacherResults from './pages/teacherResults/TeacherResults';
+import CreateNewClass from './pages/createNewClass/CreateNewClass';
 
 function App() {
 
   const [userCredentials, setUserCredentials] = useState<{
-    username: string | undefined,
+    username: string,
   }>({
-    username: undefined,
+    username: '',
   })
 
   const getUserCredentials = (credentials: {
@@ -26,7 +28,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Login getUserCredentials={getUserCredentials} />} />
           <Route path="/login/:paramusername" element={<Login getUserCredentials={getUserCredentials} />} />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/quiz" element={<Quiz username={userCredentials.username} />} />
+          <Route path="/teacherresults" element={<TeacherResults />} />
+          <Route path="/createNewClass" element={<CreateNewClass />} />
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

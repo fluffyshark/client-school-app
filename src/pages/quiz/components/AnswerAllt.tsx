@@ -11,13 +11,14 @@ type Props = {
     quizOrder: number
     setQuizOrder: any
     setQuizTracker: any
+    userID: string
 }
 
-const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder, setQuizTracker }: Props) => {
+const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder, setQuizTracker, userID }: Props) => {
 
     function clickedOnAlt(answer: string, order: number) {
         const updatedAnswers = [...studnetAnswers];
-        updatedAnswers[order].answer1 = answer;
+        updatedAnswers[order].answer1 = answer.charAt(0);
         if (lasforstaelse2[order].correct === answer) { updatedAnswers[order].points = 1; } else { updatedAnswers[order].points = 0; }
         setStudentAnswers(updatedAnswers);
 
@@ -36,10 +37,11 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
         }, 1000);
     }
 
+    console.log("THIS userID", userID)
 
     function sendToDatabase(updatedAnswers: any) {
-        axios.put(`https://server-school-test.onrender.com/server/users/6522a79e3292e8cde1a79cb6/lasforstaelse2`, { studnetAnswers: updatedAnswers })
-            // axios.put(`http://localhost:8800/server/users/6522a79e3292e8cde1a79cb6/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+        axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+            // axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
             .then((response) => {
                 console.log('User updated successfully:', response.data);
                 // Handle success, if needed

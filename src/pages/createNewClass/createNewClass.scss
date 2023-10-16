@@ -1,0 +1,72 @@
+.createNewClass {
+    background-color: rgb(93, 93, 93);
+    background-color: rgb(105, 105, 192);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    h1 {
+        margin: 0;
+    }
+
+    input {
+        border: none;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1rem;
+        padding: 1rem;
+        background-color: whitesmoke;
+        outline: none;
+        text-align: center;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    .classCreated {
+        background-color: gray;
+        padding: .5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: .1rem solid black;
+        font-size: 1.5rem;
+
+        p {
+            color: rgb(0, 255, 0);
+            font-weight: bold;
+        }
+
+        .number {
+            color: black;
+        }
+    }
+
+    .codeContainer {
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
+        background-color: rgb(110, 110, 157);
+        width: 100vw;
+        flex-wrap: wrap;
+
+        p {
+            color: gold;
+        }
+    }
+
+    button {
+        background-color: green;
+        width: 9rem;
+        padding: 1rem;
+        border-radius: 1rem;
+        font-weight: bold;
+        letter-spacing: .05rem;
+        font-size: 1rem;
+        border: .2rem solid rgb(0, 255, 0);
+        color: whitesmoke;
+    }
+}
