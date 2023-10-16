@@ -98,8 +98,8 @@ const styles1 = StyleSheet.create({
     },
     taskgroup3: {
         position: "absolute",
-        nr1: { left: 155, top: -14, fontSize: 8 },
-        nr2: { left: 155, top: -6, fontSize: 8 },
+        nr1: { left: 155, top: -14.5, fontSize: 8 },
+        nr2: { left: 155, top: -6.5, fontSize: 8 },
         nr3: { left: 155, top: 2, fontSize: 8 },
         nr4: { left: 155, top: 10, fontSize: 8 },
     },

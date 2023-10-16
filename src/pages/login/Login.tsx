@@ -26,11 +26,13 @@ const Login: React.FC<Props> = ({ getUserCredentials }) => {
 
 
 
+
     useEffect(() => {
         console.log("paramUsername", paramUsername);
         // When paramUsername changes, update the input field value
         if (paramUsername !== undefined) {
             setCredentials({ username: paramUsername });
+            getUserCredentials({ username: paramUsername });
         }
     }, [paramUsername]);
 

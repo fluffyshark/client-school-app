@@ -57,7 +57,7 @@ const TeacherResults = (props: Props) => {
                 const convertedData = {
                     name: "Namn:",
                     code: `Kod: ${currentItem.username}`,
-                    points: "Poäng:",
+                    points: `Poäng: ${currentItem.lasforstaelse2_points}`,
                     taskTitle1: "Övning",
                     taskTitle2: "Text A",
                     taskTitle3: "Text B",

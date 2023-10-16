@@ -14,12 +14,17 @@ type Props = {
     userID: string
 }
 
+
 const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder, setQuizTracker, userID }: Props) => {
+
+
 
     function clickedOnAlt(answer: string, order: number) {
         const updatedAnswers = [...studnetAnswers];
         updatedAnswers[order].answer1 = answer.charAt(0);
-        if (lasforstaelse2[order].correct === answer) { updatedAnswers[order].points = 1; } else { updatedAnswers[order].points = 0; }
+        if (lasforstaelse2[order].correct === answer) {
+            updatedAnswers[order].points = 1;
+        } else { updatedAnswers[order].points = 0; }
         setStudentAnswers(updatedAnswers);
 
         setQuizTracker((prevState: string[]) => {
@@ -30,12 +35,17 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
 
         setQuizOrder(quizOrder + 1)
 
-
+        setTimeout(() => {
+            sendPointsToDatabase()
+        }, 500);
 
         setTimeout(() => {
             sendToDatabase(updatedAnswers)
         }, 1000);
     }
+
+
+
 
     console.log("THIS userID", userID)
 
@@ -51,6 +61,21 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
                 // Handle errors, if needed
             });
     }
+
+
+
+
+    function sendPointsToDatabase() {
+        axios.post(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
+            // axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
+            .then(response => {
+                console.log('Point added successfully:', response.data);
+            })
+            .catch(error => {
+                console.error('Error adding point:', error);
+            });
+    }
+
 
 
 
