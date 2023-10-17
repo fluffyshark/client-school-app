@@ -5,6 +5,8 @@ import Navbar from '../../components/navbar/Navbar'
 import TwoTextAresForms from './components/TwoTextAresForms'
 import AnswerAllt from './components/AnswerAllt'
 import { lasforstaelse2 } from "./questions/questions"
+import { useDispatch } from 'react-redux'
+import { add_user_info } from '../../redux/UserReducer'
 
 type Props = {
     username: string
@@ -56,23 +58,45 @@ const Quiz = ({ username }: Props) => {
     ])
 
 
+    const dispatch = useDispatch()
+
+
     useEffect(() => {
         console.log("studnetAnswers", studnetAnswers)
     }, [studnetAnswers])
 
     useEffect(() => {
-        axios.get(`https://server-school-test.onrender.com/server/users/username/${username}`)
-            // axios.get(`http://localhost:8800/server/users/username/${username}`)
+        // axios.get(`https://server-school-test.onrender.com/server/users/username/${username}`)
+        axios.get(`http://localhost:8800/server/users/username/${username}`)
             .then((response) => {
                 // Handle the response data here
                 console.log("response.data", response.data);
-                setUserID(response.data.id)
+                const userData = response.data
+                setUserID(userData.user._id)
+
+                if (userData) {
+                    const addToUserReducer = {
+                        _id: userData.user._id,
+                        username: userData.user.username,
+                        lasforstaelse2: userData.user.lasforstaelse2,
+                        lasforstaelse2_points: userData.user.lasforstaelse2_points
+                    };
+
+                    dispatch(add_user_info(addToUserReducer))
+                }
+
             })
             .catch((error) => {
                 // Handle any errors that occur during the request
                 console.error(error);
+
+
             });
     }, [])
+
+
+
+
 
 
 

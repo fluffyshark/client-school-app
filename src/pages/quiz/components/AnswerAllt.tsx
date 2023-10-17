@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./answerAllt.scss"
 import axios from 'axios';
 
 import { lasforstaelse2 } from "./../questions/questions"
+import { useSelector } from 'react-redux';
 
 type Props = {
     quiz_question: any
@@ -18,12 +19,21 @@ type Props = {
 const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder, setQuizTracker, userID }: Props) => {
 
 
+    const user = useSelector((state: any) => state.user.value);
+
+
+    useEffect(() => {
+        console.log("user", user)
+    }, [user])
+
+
 
     function clickedOnAlt(answer: string, order: number) {
         const updatedAnswers = [...studnetAnswers];
         updatedAnswers[order].answer1 = answer.charAt(0);
         if (lasforstaelse2[order].correct === answer) {
             updatedAnswers[order].points = 1;
+            sendPointsToDatabase()
         } else { updatedAnswers[order].points = 0; }
         setStudentAnswers(updatedAnswers);
 
@@ -36,12 +46,8 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
         setQuizOrder(quizOrder + 1)
 
         setTimeout(() => {
-            sendPointsToDatabase()
-        }, 500);
-
-        setTimeout(() => {
             sendToDatabase(updatedAnswers)
-        }, 1000);
+        }, 500);
     }
 
 
@@ -50,8 +56,8 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
     console.log("THIS userID", userID)
 
     function sendToDatabase(updatedAnswers: any) {
-        axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
-            // axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+        // axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+        axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
             .then((response) => {
                 console.log('User updated successfully:', response.data);
                 // Handle success, if needed
@@ -66,8 +72,8 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
 
 
     function sendPointsToDatabase() {
-        axios.post(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
-            // axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
+        // axios.post(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
+        axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
             .then(response => {
                 console.log('Point added successfully:', response.data);
             })

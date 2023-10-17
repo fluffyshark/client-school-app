@@ -54,14 +54,14 @@ const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, qu
 
         setTimeout(() => {
             sendToDatabase(updatedAnswers)
-        }, 1000);
+        }, 100);
     };
 
 
 
     function sendToDatabase(updatedAnswers: any) {
-        axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
-            // axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+        // axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+        axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
             .then((response) => {
                 console.log('User updated successfully:', response.data);
                 // Handle success, if needed

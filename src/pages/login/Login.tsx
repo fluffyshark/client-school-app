@@ -73,6 +73,7 @@ const Login: React.FC<Props> = ({ getUserCredentials }) => {
             dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
 
             console.log("LOGGED IN")
+
             navigate("/quiz")
 
         } catch (err: any) {
