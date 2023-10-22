@@ -22,13 +22,12 @@
         width: 100%;
         height: calc(100vh - 50px);
         @include flex(center, center, column);
-
-
     }
 }
 
 
-@media only screen and (max-width: 1150px) {}
+
+
 
 
 

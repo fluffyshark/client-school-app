@@ -3,6 +3,7 @@ import "./teacherResults.scss"
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import PDFFile from './components/PDFfile';
 import { getAllUsers } from '../../requests/requests';
+import InactivityDetector from '../../components/inactivityDetector/InactivityDetector';
 
 type Props = {}
 
@@ -117,11 +118,43 @@ const TeacherResults = (props: Props) => {
 
 
 
+
+    const [loggedIn, setLoggedIn] = useState(true)
+
+
+    console.log("loggedIn", loggedIn)
+
+
     return (
         <div className='teacherResults'>
+            <div className="studentsContainer">
+                {allUsers.map((student: any, i: number) => {
+                    return (
+                        <div key={i} className="studentsRow">
+                            <div className="codeBox"><p>{student.username}</p></div>
+                            {student.lasforstaelse2 && student.lasforstaelse2.map((task: any, a: number) => {
+                                if (task.points === 1) {
+                                    return <div key={a} className="answerBox" style={{ backgroundColor: "lightgreen" }}></div>
+                                } else if (task.points === 0 && task.answer1 != "") {
+                                    return <div key={a} className="answerBox" style={{ backgroundColor: "red" }}></div>
+                                } else if (task.points === 0 && task.answer1 === "") {
+                                    return <div key={a} className="answerBox" style={{ backgroundColor: "white" }}></div>
+                                }
+                            })}
+
+                        </div>
+                    )
+                })}
+
+            </div>
+
+
             <PDFDownloadLink document={<PDFFile formData={formData} data={data} />} fileName="Character Sheet">
                 {({ loading }) => (loading ? <button>Loading document...</button> : <button className='PDFbutton'>Download results as PDF</button>)}
             </PDFDownloadLink>
+
+            <InactivityDetector setLoggedIn={setLoggedIn} />
+
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./twoTextAresForm.scss"
 import axios from 'axios';
 
@@ -19,6 +19,7 @@ interface Props {
 
 const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrder, setQuizOrder, setQuizTracker, userID }: Props) => {
 
+    const [answerStatus, setAnswerStatus] = useState("")
     const [formData, setFormData] = useState<FormState>({
         field1: '',
         field2: '',
@@ -44,14 +45,6 @@ const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, qu
         updatedAnswers[quizOrder].answer2 = formData.field2;
         setStudentAnswers(updatedAnswers);
 
-        setQuizTracker((prevState: string[]) => {
-            const updatedQuizTracker = [...prevState]; // Create a copy of the original array
-            updatedQuizTracker[quizOrder] = "done"; // Set the element at index 2 to "done"
-            return updatedQuizTracker; // Return the updated array
-        });
-
-        setQuizOrder(quizOrder + 1)
-
         setTimeout(() => {
             sendToDatabase(updatedAnswers)
         }, 100);
@@ -59,16 +52,35 @@ const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, qu
 
 
 
+    useEffect(() => {
+        setTimeout(() => {
+            if (answerStatus === "SUCCESS") {
+                setQuizTracker((prevState: string[]) => {
+                    const updatedQuizTracker = [...prevState]; // Create a copy of the original array
+                    updatedQuizTracker[quizOrder] = "done"; // Set the element at index 2 to "done"
+                    return updatedQuizTracker; // Return the updated array
+                });
+
+                setQuizOrder(quizOrder + 1)
+                setAnswerStatus("")
+            }
+        }, 1500);
+    }, [answerStatus])
+
+
+
     function sendToDatabase(updatedAnswers: any) {
-        // axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
-        axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+        axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
+            // axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2`, { studnetAnswers: updatedAnswers })
             .then((response) => {
                 console.log('User updated successfully:', response.data);
                 // Handle success, if needed
+                setAnswerStatus("SUCCESS")
             })
             .catch((error) => {
                 console.error('Error updating user:', error);
                 // Handle errors, if needed
+                setAnswerStatus("FAILURE")
             });
     }
 
@@ -76,6 +88,9 @@ const TwoTextAresForms = ({ quiz_question, setStudentAnswers, studnetAnswers, qu
     return (
 
         <div className='textAreaForm'>
+            {answerStatus === "SUCCESS" && <div className="connectionStatusSuccess"><p>Answer Sent</p></div>}
+            {answerStatus === "FAILURE" && <div className="connectionStatusFailure"><p>Answer Not Sent</p></div>}
+
             <div className="textArea_questionArea">
                 <p style={{ width: `${quiz_question.questionWith}` }}>{quiz_question.question}</p>
 

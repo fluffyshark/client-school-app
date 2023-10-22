@@ -7,6 +7,7 @@ import AnswerAllt from './components/AnswerAllt'
 import { lasforstaelse2 } from "./questions/questions"
 import { useDispatch } from 'react-redux'
 import { add_user_info } from '../../redux/UserReducer'
+import { retrieveStudentAnswers } from './functions/retrieveStudentAnswers'
 
 type Props = {
     username: string
@@ -14,7 +15,7 @@ type Props = {
 
 const Quiz = ({ username }: Props) => {
 
-    console.log("userID", username)
+
 
     const [userID, setUserID] = useState("")
     const [quizOrder, setQuizOrder] = useState(0)
@@ -62,16 +63,13 @@ const Quiz = ({ username }: Props) => {
 
 
     useEffect(() => {
-        console.log("studnetAnswers", studnetAnswers)
-    }, [studnetAnswers])
-
-    useEffect(() => {
-        // axios.get(`https://server-school-test.onrender.com/server/users/username/${username}`)
-        axios.get(`http://localhost:8800/server/users/username/${username}`)
+        axios.get(`https://server-school-test.onrender.com/server/users/username/${username}`)
+            // axios.get(`http://localhost:8800/server/users/username/${username}`)
             .then((response) => {
                 // Handle the response data here
                 console.log("response.data", response.data);
                 const userData = response.data
+
                 setUserID(userData.user._id)
 
                 if (userData) {
@@ -82,7 +80,14 @@ const Quiz = ({ username }: Props) => {
                         lasforstaelse2_points: userData.user.lasforstaelse2_points
                     };
 
-                    dispatch(add_user_info(addToUserReducer))
+                    dispatch(add_user_info(addToUserReducer));
+
+                    // Retrieve old results
+                    if (userData.user.lasforstaelse2.length > 0) {
+                        setStudentAnswers(retrieveStudentAnswers(userData.user.lasforstaelse2))
+                    }
+
+
                 }
 
             })
@@ -100,10 +105,11 @@ const Quiz = ({ username }: Props) => {
 
 
 
+
     return (
         <div className='quiz'>
             <Navbar setQuizOrder={setQuizOrder} quizTracker={quizTracker} />
-            {/* <img src={mall} alt="" /> */}
+
             <div className="mainContent">
 
                 {lasforstaelse2.map((quiz_question, i) => {
