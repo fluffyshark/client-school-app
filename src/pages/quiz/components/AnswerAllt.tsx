@@ -86,13 +86,15 @@ const AnswerAllt = ({ quiz_question, setStudentAnswers, studnetAnswers, quizOrde
 
 
     function sendPointsToDatabase() {
-        axios.post(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
+        axios.put(`https://server-school-test.onrender.com/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
             // axios.put(`http://localhost:8800/server/users/${userID}/lasforstaelse2_points`, { points: 1 })
             .then(response => {
                 console.log('Point added successfully:', response.data);
+
             })
             .catch(error => {
                 console.error('Error adding point:', error);
+
             });
     }
 
